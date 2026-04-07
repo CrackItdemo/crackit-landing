@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Yourself – Electrical Phase 4</title>
+  <style>
+    :root {
+      --bg: #0f1113;
+      --surface: #171a1f;
+      --text: #e8f0ea;
+      --muted: #9cb0a0;
+      --accent: #34d17a;
+      --accent-strong: #22b665;
+      --danger: #f15d5d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top right, #1a2a1f 0%, var(--bg) 40%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid #28322a;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 1.55rem;
+      line-height: 1.25;
+      color: var(--accent);
+      letter-spacing: 0.2px;
+    }
+
+    .q {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #2a2f33;
+    }
+
+    .q:first-of-type {
+      margin-top: 6px;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .prompt {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      background: #20262b;
+      color: var(--text);
+      border: 1px solid #30383f;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .opt-btn:hover,
+    .opt-btn:focus-visible {
+      border-color: var(--accent);
+      background: #242e28;
+      outline: none;
+    }
+
+    .givens {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    input[type="number"] {
+      flex: 1;
+      min-width: 0;
+      background: #1f2429;
+      color: var(--text);
+      border: 1px solid #384149;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 0.95rem;
+    }
+
+    .check-btn,
+    .cta {
+      background: var(--accent);
+      color: #08130d;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .check-btn:hover,
+    .cta:hover,
+    .check-btn:focus-visible,
+    .cta:focus-visible {
+      background: var(--accent-strong);
+      outline: none;
+    }
+
+    .feedback {
+      margin-top: 8px;
+      min-height: 1.2rem;
+      font-size: 0.92rem;
+    }
+
+    .feedback.good { color: var(--accent); }
+    .feedback.bad { color: var(--danger); }
+
+    .footer {
+      margin-top: 20px;
+      border-top: 1px solid #2a2f33;
+      padding-top: 14px;
+    }
+
+    .footer p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .cta {
+      width: 100%;
+      padding: 13px;
+      font-size: 1rem;
+    }
+
+    @media (min-width: 720px) {
+      .wrap { padding: 24px; }
+      h1 { font-size: 1.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Test Yourself – Electrical Phase 4</h1>
+
+      <article class="q" aria-labelledby="q1-title">
+        <p class="prompt" id="q1-title">1) In an RL series circuit, what happens to inductive reactance when frequency increases?</p>
+        <div class="options" role="group" aria-label="Question 1 options">
+          <button class="opt-btn" data-answer="Decreases">Decreases</button>
+          <button class="opt-btn" data-answer="Stays the same">Stays the same</button>
+          <button class="opt-btn" data-answer="Increases">Increases</button>
+          <button class="opt-btn" data-answer="Becomes zero">Becomes zero</button>
+        </div>
+        <p id="q1-feedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="q" aria-labelledby="q2-title">
+        <p class="prompt" id="q2-title">2) Calculate inductive reactance</p>
+        <p class="givens">Given: L = 0.2 H, f = 50 Hz</p>
+        <div class="input-row">
+          <input id="reactance-input" type="number" step="0.1" inputmode="decimal" placeholder="Answer in ohms" aria-label="Inductive reactance in ohms" />
+          <button id="check-reactance" class="check-btn">Check</button>
+        </div>
+        <p id="q2-feedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <footer class="footer">
+        <p>You’ve just done 2 questions. The exam has 20.</p>
+        <button class="cta" type="button">Unlock Full App</button>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const q1Correct = 'Increases';
+    const q1Feedback = document.getElementById('q1-feedback');
+
+    document.querySelectorAll('.opt-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const chosen = btn.dataset.answer;
+        const isCorrect = chosen === q1Correct;
+
+        q1Feedback.textContent = isCorrect
+          ? 'Correct — inductive reactance increases as frequency goes up.'
+          : 'Not quite. Correct answer: Increases.';
+        q1Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
+      });
+    });
+
+    const expected = 2 * Math.PI * 50 * 0.2;
+    const tolerance = expected * 0.01;
+
+    const input = document.getElementById('reactance-input');
+    const checkBtn = document.getElementById('check-reactance');
+    const q2Feedback = document.getElementById('q2-feedback');
+
+    function checkReactance() {
+      const entered = Number(input.value);
+
+      if (!Number.isFinite(entered)) {
+        q2Feedback.textContent = 'Please enter a numeric value.';
+        q2Feedback.className = 'feedback bad';
+        return;
+      }
+
+      const isCorrect = Math.abs(entered - expected) <= tolerance;
+
+      q2Feedback.textContent = isCorrect
+        ? 'Correct — around 62.8 Ω is right.'
+        : 'Not correct. Expected about 62.8 Ω (±1%).';
+      q2Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
+    }
+
+    checkBtn.addEventListener('click', checkReactance);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkReactance();
+    });
+  </script>
+</body>
+</html>
