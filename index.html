@@ -279,11 +279,12 @@
     }
 
     .tagline {
-      margin: 2px 0 0;
-      font-size: 0.9rem;
-      color: var(--muted) !important;
+      margin: 10px 0 0;
+      font-size: 0.78rem;
+      color: #b8dbc8 !important;
       font-weight: 400;
       text-align: center;
+      opacity: 0.62 !important;
     }
 
     .cta-link {
@@ -303,7 +304,7 @@
       max-width: 420px;
     }
 
-    .final *,
+    .final *:not(.tagline),
     .result-block * {
       color: #ffffff !important;
       opacity: 1 !important;
@@ -374,12 +375,12 @@
           <p class="final-message">This is just a sample.</p>
           <p class="final-price">Unlock full access for €9.99 inside the app. No subscription.</p>
           <p class="final-message">Study by topic. Build from easy. Be exam ready.</p>
-          <p class="tagline">CrackIt — your study buddy</p>
           <a class="cta cta-link" href="http://www.crackit.ie/" target="_blank" rel="noopener noreferrer">Download the app for free</a>
         </div>
         <div class="global-actions">
           <button id="retry-all" class="retry-all" type="button">Retry All</button>
         </div>
+        <p class="tagline">CrackIt — your study buddy</p>
       </footer>
     </section>
   </main>
