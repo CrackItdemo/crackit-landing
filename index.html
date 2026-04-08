@@ -6,14 +6,15 @@
   <title>Test Yourself – Electrical Phase 4</title>
   <style>
     :root {
-      --bg: #f5f7f6;
-      --surface: #ffffff;
-      --text: #17201c;
-      --muted: #5f6b65;
-      --accent: #1f8f4f;
-      --accent-strong: #167541;
-      --danger: #cf3f3f;
-      --border: #d8e1dc;
+      --bg: #070e0a;
+      --surface: #0f1b14;
+      --surface-2: #14241b;
+      --text: #f2fff7;
+      --muted: #a8c6b4;
+      --accent: #2ae870;
+      --accent-strong: #1fd661;
+      --danger: #ff6e6e;
+      --border: #224333;
     }
 
     * { box-sizing: border-box; }
@@ -21,105 +22,114 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
+      background: radial-gradient(circle at top, #0d1a13 0%, #070e0a 65%);
       color: var(--text);
       min-height: 100vh;
     }
 
     .wrap {
-      max-width: 680px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 14px;
+      padding: 16px;
     }
 
     .card {
-      background: var(--surface);
+      background: linear-gradient(180deg, var(--surface), #0b1510);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
     }
 
     h1 {
-      margin: 0 0 8px;
-      font-size: 1.35rem;
+      margin: 0 0 10px;
+      font-size: 1.45rem;
       color: var(--accent);
+      letter-spacing: 0.2px;
     }
 
     .sub {
-      margin: 0 0 10px;
-      font-size: 0.95rem;
+      margin: 0;
+      font-size: 0.98rem;
       color: var(--muted);
     }
 
     .q {
-      margin-top: 14px;
-      padding-top: 14px;
+      margin-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
 
     .prompt {
-      margin: 0 0 10px;
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.35;
+      margin: 0 0 14px;
+      font-size: 1.04rem;
+      font-weight: 750;
+      line-height: 1.4;
     }
 
-    .options {
+    .options,
+    .input-row,
+    .question-actions {
       display: grid;
       gap: 10px;
     }
 
+    .btn,
     .opt-btn,
     .check-btn,
-    .cta {
+    .cta,
+    .retry-all {
       width: 100%;
-      border-radius: 12px;
-      min-height: 50px;
+      min-height: 54px;
+      border-radius: 14px;
+      border: 1px solid transparent;
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
+      transition: 140ms ease;
     }
 
     .opt-btn {
       text-align: left;
-      background: #f4f8f6;
+      background: var(--surface-2);
       color: var(--text);
-      border: 1px solid #d5e2db;
-      padding: 12px;
+      border-color: #2c5742;
+      padding: 14px;
     }
 
     .opt-btn:hover,
     .opt-btn:focus-visible {
       border-color: var(--accent);
+      transform: translateY(-1px);
       outline: none;
     }
 
     .givens {
-      margin: 0 0 10px;
+      margin: 0 0 12px;
       color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .input-row {
-      display: grid;
-      gap: 8px;
+      font-size: 0.97rem;
     }
 
     input {
       width: 100%;
-      min-height: 50px;
-      border: 1px solid #c8d4ce;
-      border-radius: 12px;
-      padding: 0 12px;
+      min-height: 54px;
+      border: 1px solid #2f5944;
+      border-radius: 14px;
+      background: #0a1410;
+      color: var(--text);
+      padding: 0 14px;
       font-size: 1rem;
+    }
+
+    input::placeholder {
+      color: #86ab97;
     }
 
     .check-btn,
     .cta {
-      border: none;
       background: var(--accent);
-      color: white;
+      color: #072111;
+      border-color: var(--accent);
       padding: 12px;
     }
 
@@ -128,43 +138,66 @@
     .check-btn:focus-visible,
     .cta:focus-visible {
       background: var(--accent-strong);
+      border-color: var(--accent-strong);
+      outline: none;
+    }
+
+    .btn,
+    .retry-all {
+      background: transparent;
+      color: var(--text);
+      border-color: #3a6e54;
+      padding: 12px;
+    }
+
+    .btn:hover,
+    .retry-all:hover,
+    .btn:focus-visible,
+    .retry-all:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
       outline: none;
     }
 
     .feedback {
-      margin-top: 8px;
+      margin: 10px 0 12px;
       min-height: 1.3rem;
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 0.96rem;
+      font-weight: 650;
     }
 
     .good { color: var(--accent); }
     .bad { color: var(--danger); }
 
     .final {
-      margin-top: 16px;
+      margin-top: 26px;
       border-top: 1px solid var(--border);
-      padding-top: 14px;
+      padding-top: 18px;
       display: none;
     }
 
     .final p {
-      margin: 0 0 10px;
+      margin: 0 0 12px;
       color: var(--muted);
       font-size: 1rem;
     }
 
     .score {
-      font-weight: 800;
+      font-weight: 850;
       color: var(--text);
     }
 
+    .global-actions {
+      margin-top: 18px;
+    }
+
     @media (min-width: 700px) {
-      .wrap { padding: 20px; }
-      .card { padding: 20px; }
-      h1 { font-size: 1.6rem; }
+      .wrap { padding: 24px; }
+      .card { padding: 24px; }
+      h1 { font-size: 1.7rem; }
       .input-row { grid-template-columns: 1fr auto; }
-      .check-btn { width: auto; min-width: 120px; }
+      .check-btn { width: auto; min-width: 140px; }
+      .question-actions { grid-template-columns: 1fr; max-width: 220px; }
     }
   </style>
 </head>
@@ -175,33 +208,42 @@
       <p class="sub">Answer all 3 questions and get instant feedback.</p>
 
       <article class="q" aria-labelledby="q1-title">
-        <p class="prompt" id="q1-title">1) The unit of inductive reactance (XL) is:</p>
+        <p class="prompt" id="q1-title">1) The unit of measure of inductive reactance (XL) is:</p>
         <div class="options" role="group" aria-label="Question 1 options">
-          <button class="opt-btn" data-q1="V">A. V</button>
-          <button class="opt-btn" data-q1="A">B. A</button>
-          <button class="opt-btn" data-q1="H">C. H</button>
-          <button class="opt-btn" data-q1="Ω">D. Ω</button>
+          <button class="opt-btn" data-q1="V" type="button">A. V</button>
+          <button class="opt-btn" data-q1="A" type="button">B. A</button>
+          <button class="opt-btn" data-q1="H" type="button">C. H</button>
+          <button class="opt-btn" data-q1="Ω" type="button">D. Ω</button>
         </div>
         <p id="q1-feedback" class="feedback" aria-live="polite"></p>
+        <div class="question-actions">
+          <button id="retry-q1" class="btn" type="button">Retry Question</button>
+        </div>
       </article>
 
       <article class="q" aria-labelledby="q2-title">
-        <p class="prompt" id="q2-title">2) Calculate power</p>
+        <p class="prompt" id="q2-title">2) In an AC resistive circuit, calculate the power.</p>
         <p class="givens">Given: V = 230 V, I = 2 A</p>
         <div class="input-row">
           <input id="power-input" type="number" step="any" inputmode="decimal" placeholder="Enter power" aria-label="Power answer" />
           <button id="check-power" class="check-btn" type="button">Check</button>
         </div>
         <p id="q2-feedback" class="feedback" aria-live="polite"></p>
+        <div class="question-actions">
+          <button id="retry-q2" class="btn" type="button">Retry Question</button>
+        </div>
       </article>
 
       <article class="q" aria-labelledby="q3-title">
-        <p class="prompt" id="q3-title">3) The unit of resistance is _______</p>
+        <p class="prompt" id="q3-title">3) Resistance is measured in _______</p>
         <div class="input-row">
           <input id="resistance-input" type="text" placeholder="Type your answer" aria-label="Unit of resistance" />
           <button id="check-resistance" class="check-btn" type="button">Check</button>
         </div>
         <p id="q3-feedback" class="feedback" aria-live="polite"></p>
+        <div class="question-actions">
+          <button id="retry-q3" class="btn" type="button">Retry Question</button>
+        </div>
       </article>
 
       <footer id="final-block" class="final" aria-live="polite">
@@ -210,26 +252,64 @@
         <p>And they won’t be past paper repeats.</p>
         <button class="cta" type="button">Get Full Access – €9.99</button>
       </footer>
+
+      <div class="global-actions">
+        <button id="retry-all" class="retry-all" type="button">Retry All</button>
+      </div>
     </section>
   </main>
 
   <script>
-    let score = 0;
-    const completed = { q1: false, q2: false, q3: false };
+    const state = { q1: null, q2: null, q3: null };
+
+    function scoreCount() {
+      return Object.values(state).filter((v) => v === true).length;
+    }
 
     function maybeShowFinal() {
-      if (completed.q1 && completed.q2 && completed.q3) {
-        document.getElementById('score-line').textContent = `You got ${score} out of 3`;
-        document.getElementById('final-block').style.display = 'block';
+      const allDone = Object.values(state).every((v) => v !== null);
+      const finalBlock = document.getElementById('final-block');
+      if (!allDone) {
+        finalBlock.style.display = 'none';
+        return;
       }
+      document.getElementById('score-line').textContent = `You got ${scoreCount()} out of 3`;
+      finalBlock.style.display = 'block';
+    }
+
+    function resetFeedback(id) {
+      const el = document.getElementById(id);
+      el.textContent = '';
+      el.className = 'feedback';
+    }
+
+    function resetQuestion(qKey) {
+      state[qKey] = null;
+      if (qKey === 'q1') {
+        resetFeedback('q1-feedback');
+      }
+      if (qKey === 'q2') {
+        document.getElementById('power-input').value = '';
+        resetFeedback('q2-feedback');
+      }
+      if (qKey === 'q3') {
+        document.getElementById('resistance-input').value = '';
+        resetFeedback('q3-feedback');
+      }
+      maybeShowFinal();
+    }
+
+    function resetAll() {
+      resetQuestion('q1');
+      resetQuestion('q2');
+      resetQuestion('q3');
+      document.getElementById('final-block').style.display = 'none';
     }
 
     // Question 1 (MCQ)
     const q1Feedback = document.getElementById('q1-feedback');
     document.querySelectorAll('[data-q1]').forEach((button) => {
       button.addEventListener('click', () => {
-        if (completed.q1) return;
-
         const choice = button.dataset.q1;
         let message = '';
         let correct = false;
@@ -245,8 +325,7 @@
           message = 'Incorrect — henry is the unit of inductance.';
         }
 
-        if (correct) score += 1;
-        completed.q1 = true;
+        state.q1 = correct;
         q1Feedback.textContent = message;
         q1Feedback.className = `feedback ${correct ? 'good' : 'bad'}`;
         maybeShowFinal();
@@ -255,14 +334,11 @@
 
     // Question 2 (Numeric)
     const correctPower = 460;
-    const tolerance = correctPower * 0.01;
     const closeTolerance = correctPower * 0.05;
     const q2Input = document.getElementById('power-input');
     const q2Feedback = document.getElementById('q2-feedback');
 
     function checkPower() {
-      if (completed.q2) return;
-
       const entered = Number(q2Input.value);
       if (!Number.isFinite(entered)) {
         q2Feedback.textContent = 'Please enter a numeric value.';
@@ -271,22 +347,23 @@
       }
 
       const diff = Math.abs(entered - correctPower);
-      const isCorrect = diff <= tolerance;
-      const isClose = !isCorrect && diff <= closeTolerance;
+      const isExact = entered === correctPower;
+      const isClose = !isExact && diff <= closeTolerance;
 
-      if (isCorrect) {
-        score += 1;
-        q2Feedback.textContent = 'Correct — standard power calculation.';
+      if (isExact) {
+        state.q2 = true;
+        q2Feedback.textContent = 'Correct — exact match.';
         q2Feedback.className = 'feedback good';
       } else if (isClose) {
-        q2Feedback.textContent = 'Very close — check your multiplication.';
+        state.q2 = false;
+        q2Feedback.textContent = 'Close — check your calculation.';
         q2Feedback.className = 'feedback bad';
       } else {
-        q2Feedback.textContent = 'Incorrect — use P = V × I.';
+        state.q2 = false;
+        q2Feedback.textContent = 'Hard luck — use P = V × I.';
         q2Feedback.className = 'feedback bad';
       }
 
-      completed.q2 = true;
       maybeShowFinal();
     }
 
@@ -301,22 +378,20 @@
     const accepted = new Set(['ohm', 'ohms', 'ω', 'Ω']);
 
     function checkResistance() {
-      if (completed.q3) return;
-
       const raw = q3Input.value.trim();
       const normalized = raw.toLowerCase();
       const isCorrect = accepted.has(raw) || accepted.has(normalized);
 
       if (isCorrect) {
-        score += 1;
+        state.q3 = true;
         q3Feedback.textContent = 'Correct — resistance is measured in ohms.';
         q3Feedback.className = 'feedback good';
       } else {
-        q3Feedback.textContent = 'Incorrect — this is a basic term you need to know.';
+        state.q3 = false;
+        q3Feedback.textContent = 'Incorrect — resistance is measured in ohms.';
         q3Feedback.className = 'feedback bad';
       }
 
-      completed.q3 = true;
       maybeShowFinal();
     }
 
@@ -324,6 +399,11 @@
     q3Input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') checkResistance();
     });
+
+    document.getElementById('retry-q1').addEventListener('click', () => resetQuestion('q1'));
+    document.getElementById('retry-q2').addEventListener('click', () => resetQuestion('q2'));
+    document.getElementById('retry-q3').addEventListener('click', () => resetQuestion('q3'));
+    document.getElementById('retry-all').addEventListener('click', resetAll);
   </script>
 </body>
 </html>
