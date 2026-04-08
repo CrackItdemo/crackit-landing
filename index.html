@@ -182,9 +182,9 @@
     .bad { color: var(--danger); }
 
     .final {
-      margin-top: 26px;
+      margin-top: 14px;
       border-top: 1px solid var(--border);
-      padding-top: 18px;
+      padding-top: 12px;
       display: none;
     }
 
@@ -195,60 +195,70 @@
     }
 
     .result-block {
-      margin: 34px 0 36px;
-      padding: 28px;
-      text-align: center;
+      margin: 10px 0 14px;
+      padding: 32px !important;
+      text-align: center !important;
       border-radius: 16px;
       border: 1px solid #24523d;
       background: #0c1c14;
+      max-height: none !important;
+      overflow: visible !important;
+      transform: none !important;
     }
 
     .score {
-      font-size: 80px;
-      font-weight: 800;
-      color: #ffffff;
-      text-align: center;
+      font-size: 96px !important;
+      font-weight: 900 !important;
+      color: #ffffff !important;
+      text-align: center !important;
       letter-spacing: 0.3px;
-      line-height: 1;
+      line-height: 1 !important;
       margin: 0;
     }
 
     .score-label {
-      margin: 6px 0 0;
-      color: #ffffff;
-      font-size: 22px;
+      margin: 2px 0 0;
+      color: #ffffff !important;
+      font-size: 24px !important;
       font-weight: 700;
       letter-spacing: 0.2px;
+      text-align: center !important;
     }
 
     .final-offer {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 4px;
       text-align: center;
-      color: #ffffff;
+      color: #ffffff !important;
+      max-height: none !important;
+      overflow: visible !important;
+      transform: none !important;
     }
 
     .final-message {
-      color: #ffffff;
+      color: #ffffff !important;
       font-size: 1.04rem;
-      line-height: 1.4;
+      line-height: 1.3;
       margin: 0;
+      opacity: 1 !important;
     }
 
     .final-price {
-      color: #ffffff;
+      color: #ffffff !important;
       font-size: 1.04rem;
-      line-height: 1.4;
+      line-height: 1.3;
       margin: 0;
+      opacity: 1 !important;
     }
 
     .cta-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-top: 4px;
+      margin-top: 6px;
       text-decoration: none;
       max-width: 420px;
       font-size: 1.06rem;
@@ -256,7 +266,15 @@
     }
 
     .global-actions {
-      margin-top: 18px;
+      margin-top: 8px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .final *,
+    .result-block * {
+      color: #ffffff !important;
+      opacity: 1 !important;
     }
 
     @media (min-width: 700px) {
@@ -325,11 +343,10 @@
           <p class="final-message">Study by topic. Build from easy. Be exam ready.</p>
           <a class="cta cta-link" href="http://www.crackit.ie/" target="_blank" rel="noopener noreferrer">Download the app for free</a>
         </div>
+        <div class="global-actions">
+          <button id="retry-all" class="retry-all" type="button">Retry All</button>
+        </div>
       </footer>
-
-      <div class="global-actions">
-        <button id="retry-all" class="retry-all" type="button">Retry All</button>
-      </div>
     </section>
   </main>
 
