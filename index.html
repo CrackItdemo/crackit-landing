@@ -6,13 +6,14 @@
   <title>Test Yourself – Electrical Phase 4</title>
   <style>
     :root {
-      --bg: #0f1113;
-      --surface: #171a1f;
-      --text: #e8f0ea;
-      --muted: #9cb0a0;
-      --accent: #34d17a;
-      --accent-strong: #22b665;
-      --danger: #f15d5d;
+      --bg: #f5f7f6;
+      --surface: #ffffff;
+      --text: #17201c;
+      --muted: #5f6b65;
+      --accent: #1f8f4f;
+      --accent-strong: #167541;
+      --danger: #cf3f3f;
+      --border: #d8e1dc;
     }
 
     * { box-sizing: border-box; }
@@ -20,73 +21,77 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at top right, #1a2a1f 0%, var(--bg) 40%);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
     }
 
     .wrap {
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 14px;
     }
 
     .card {
       background: var(--surface);
-      border: 1px solid #28322a;
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
     }
 
     h1 {
-      margin: 0 0 14px;
-      font-size: 1.55rem;
-      line-height: 1.25;
+      margin: 0 0 8px;
+      font-size: 1.35rem;
       color: var(--accent);
-      letter-spacing: 0.2px;
+    }
+
+    .sub {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      color: var(--muted);
     }
 
     .q {
-      margin-top: 16px;
+      margin-top: 14px;
       padding-top: 14px;
-      border-top: 1px solid #2a2f33;
-    }
-
-    .q:first-of-type {
-      margin-top: 6px;
-      padding-top: 0;
-      border-top: none;
+      border-top: 1px solid var(--border);
     }
 
     .prompt {
-      margin: 0 0 12px;
+      margin: 0 0 10px;
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
+      line-height: 1.35;
     }
 
     .options {
       display: grid;
-      gap: 8px;
+      gap: 10px;
+    }
+
+    .opt-btn,
+    .check-btn,
+    .cta {
+      width: 100%;
+      border-radius: 12px;
+      min-height: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .opt-btn {
-      width: 100%;
       text-align: left;
-      background: #20262b;
+      background: #f4f8f6;
       color: var(--text);
-      border: 1px solid #30383f;
-      border-radius: 10px;
-      padding: 11px 12px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
+      border: 1px solid #d5e2db;
+      padding: 12px;
     }
 
     .opt-btn:hover,
     .opt-btn:focus-visible {
       border-color: var(--accent);
-      background: #242e28;
       outline: none;
     }
 
@@ -97,33 +102,25 @@
     }
 
     .input-row {
-      display: flex;
+      display: grid;
       gap: 8px;
-      align-items: center;
     }
 
-    input[type="number"] {
-      flex: 1;
-      min-width: 0;
-      background: #1f2429;
-      color: var(--text);
-      border: 1px solid #384149;
-      border-radius: 10px;
-      padding: 11px 12px;
-      font-size: 0.95rem;
+    input {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid #c8d4ce;
+      border-radius: 12px;
+      padding: 0 12px;
+      font-size: 1rem;
     }
 
     .check-btn,
     .cta {
-      background: var(--accent);
-      color: #08130d;
       border: none;
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s ease;
+      background: var(--accent);
+      color: white;
+      padding: 12px;
     }
 
     .check-btn:hover,
@@ -136,34 +133,38 @@
 
     .feedback {
       margin-top: 8px;
-      min-height: 1.2rem;
-      font-size: 0.92rem;
-    }
-
-    .feedback.good { color: var(--accent); }
-    .feedback.bad { color: var(--danger); }
-
-    .footer {
-      margin-top: 20px;
-      border-top: 1px solid #2a2f33;
-      padding-top: 14px;
-    }
-
-    .footer p {
-      margin: 0 0 12px;
-      color: var(--muted);
+      min-height: 1.3rem;
       font-size: 0.95rem;
+      font-weight: 600;
     }
 
-    .cta {
-      width: 100%;
-      padding: 13px;
+    .good { color: var(--accent); }
+    .bad { color: var(--danger); }
+
+    .final {
+      margin-top: 16px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: none;
+    }
+
+    .final p {
+      margin: 0 0 10px;
+      color: var(--muted);
       font-size: 1rem;
     }
 
-    @media (min-width: 720px) {
-      .wrap { padding: 24px; }
-      h1 { font-size: 1.85rem; }
+    .score {
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    @media (min-width: 700px) {
+      .wrap { padding: 20px; }
+      .card { padding: 20px; }
+      h1 { font-size: 1.6rem; }
+      .input-row { grid-template-columns: 1fr auto; }
+      .check-btn { width: auto; min-width: 120px; }
     }
   </style>
 </head>
@@ -171,78 +172,157 @@
   <main class="wrap">
     <section class="card">
       <h1>Test Yourself – Electrical Phase 4</h1>
+      <p class="sub">Answer all 3 questions and get instant feedback.</p>
 
       <article class="q" aria-labelledby="q1-title">
-        <p class="prompt" id="q1-title">1) In an RL series circuit, what happens to inductive reactance when frequency increases?</p>
+        <p class="prompt" id="q1-title">1) The unit of inductive reactance (XL) is:</p>
         <div class="options" role="group" aria-label="Question 1 options">
-          <button class="opt-btn" data-answer="Decreases">Decreases</button>
-          <button class="opt-btn" data-answer="Stays the same">Stays the same</button>
-          <button class="opt-btn" data-answer="Increases">Increases</button>
-          <button class="opt-btn" data-answer="Becomes zero">Becomes zero</button>
+          <button class="opt-btn" data-q1="V">A. V</button>
+          <button class="opt-btn" data-q1="A">B. A</button>
+          <button class="opt-btn" data-q1="H">C. H</button>
+          <button class="opt-btn" data-q1="Ω">D. Ω</button>
         </div>
         <p id="q1-feedback" class="feedback" aria-live="polite"></p>
       </article>
 
       <article class="q" aria-labelledby="q2-title">
-        <p class="prompt" id="q2-title">2) Calculate inductive reactance</p>
-        <p class="givens">Given: L = 0.2 H, f = 50 Hz</p>
+        <p class="prompt" id="q2-title">2) Calculate power</p>
+        <p class="givens">Given: V = 230 V, I = 2 A</p>
         <div class="input-row">
-          <input id="reactance-input" type="number" step="0.1" inputmode="decimal" placeholder="Answer in ohms" aria-label="Inductive reactance in ohms" />
-          <button id="check-reactance" class="check-btn">Check</button>
+          <input id="power-input" type="number" step="any" inputmode="decimal" placeholder="Enter power" aria-label="Power answer" />
+          <button id="check-power" class="check-btn" type="button">Check</button>
         </div>
         <p id="q2-feedback" class="feedback" aria-live="polite"></p>
       </article>
 
-      <footer class="footer">
-        <p>You’ve just done 2 questions. The exam has 20.</p>
-        <button class="cta" type="button">Unlock Full App</button>
+      <article class="q" aria-labelledby="q3-title">
+        <p class="prompt" id="q3-title">3) The unit of resistance is _______</p>
+        <div class="input-row">
+          <input id="resistance-input" type="text" placeholder="Type your answer" aria-label="Unit of resistance" />
+          <button id="check-resistance" class="check-btn" type="button">Check</button>
+        </div>
+        <p id="q3-feedback" class="feedback" aria-live="polite"></p>
+      </article>
+
+      <footer id="final-block" class="final" aria-live="polite">
+        <p id="score-line" class="score"></p>
+        <p>You’ve done 3. The exam has 20.</p>
+        <p>And they won’t be past paper repeats.</p>
+        <button class="cta" type="button">Get Full Access – €9.99</button>
       </footer>
     </section>
   </main>
 
   <script>
-    const q1Correct = 'Increases';
+    let score = 0;
+    const completed = { q1: false, q2: false, q3: false };
+
+    function maybeShowFinal() {
+      if (completed.q1 && completed.q2 && completed.q3) {
+        document.getElementById('score-line').textContent = `You got ${score} out of 3`;
+        document.getElementById('final-block').style.display = 'block';
+      }
+    }
+
+    // Question 1 (MCQ)
     const q1Feedback = document.getElementById('q1-feedback');
+    document.querySelectorAll('[data-q1]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (completed.q1) return;
 
-    document.querySelectorAll('.opt-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const chosen = btn.dataset.answer;
-        const isCorrect = chosen === q1Correct;
+        const choice = button.dataset.q1;
+        let message = '';
+        let correct = false;
 
-        q1Feedback.textContent = isCorrect
-          ? 'Correct — inductive reactance increases as frequency goes up.'
-          : 'Not quite. Correct answer: Increases.';
-        q1Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
+        if (choice === 'Ω') {
+          correct = true;
+          message = 'Correct — inductive reactance is measured in ohms.';
+        } else if (choice === 'V') {
+          message = 'Incorrect — volts measure potential difference.';
+        } else if (choice === 'A') {
+          message = 'Incorrect — amps measure current.';
+        } else if (choice === 'H') {
+          message = 'Incorrect — henry is the unit of inductance.';
+        }
+
+        if (correct) score += 1;
+        completed.q1 = true;
+        q1Feedback.textContent = message;
+        q1Feedback.className = `feedback ${correct ? 'good' : 'bad'}`;
+        maybeShowFinal();
       });
     });
 
-    const expected = 2 * Math.PI * 50 * 0.2;
-    const tolerance = expected * 0.01;
-
-    const input = document.getElementById('reactance-input');
-    const checkBtn = document.getElementById('check-reactance');
+    // Question 2 (Numeric)
+    const correctPower = 460;
+    const tolerance = correctPower * 0.01;
+    const closeTolerance = correctPower * 0.05;
+    const q2Input = document.getElementById('power-input');
     const q2Feedback = document.getElementById('q2-feedback');
 
-    function checkReactance() {
-      const entered = Number(input.value);
+    function checkPower() {
+      if (completed.q2) return;
 
+      const entered = Number(q2Input.value);
       if (!Number.isFinite(entered)) {
         q2Feedback.textContent = 'Please enter a numeric value.';
         q2Feedback.className = 'feedback bad';
         return;
       }
 
-      const isCorrect = Math.abs(entered - expected) <= tolerance;
+      const diff = Math.abs(entered - correctPower);
+      const isCorrect = diff <= tolerance;
+      const isClose = !isCorrect && diff <= closeTolerance;
 
-      q2Feedback.textContent = isCorrect
-        ? 'Correct — around 62.8 Ω is right.'
-        : 'Not correct. Expected about 62.8 Ω (±1%).';
-      q2Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
+      if (isCorrect) {
+        score += 1;
+        q2Feedback.textContent = 'Correct — standard power calculation.';
+        q2Feedback.className = 'feedback good';
+      } else if (isClose) {
+        q2Feedback.textContent = 'Very close — check your multiplication.';
+        q2Feedback.className = 'feedback bad';
+      } else {
+        q2Feedback.textContent = 'Incorrect — use P = V × I.';
+        q2Feedback.className = 'feedback bad';
+      }
+
+      completed.q2 = true;
+      maybeShowFinal();
     }
 
-    checkBtn.addEventListener('click', checkReactance);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') checkReactance();
+    document.getElementById('check-power').addEventListener('click', checkPower);
+    q2Input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkPower();
+    });
+
+    // Question 3 (Written)
+    const q3Input = document.getElementById('resistance-input');
+    const q3Feedback = document.getElementById('q3-feedback');
+    const accepted = new Set(['ohm', 'ohms', 'ω', 'Ω']);
+
+    function checkResistance() {
+      if (completed.q3) return;
+
+      const raw = q3Input.value.trim();
+      const normalized = raw.toLowerCase();
+      const isCorrect = accepted.has(raw) || accepted.has(normalized);
+
+      if (isCorrect) {
+        score += 1;
+        q3Feedback.textContent = 'Correct — resistance is measured in ohms.';
+        q3Feedback.className = 'feedback good';
+      } else {
+        q3Feedback.textContent = 'Incorrect — this is a basic term you need to know.';
+        q3Feedback.className = 'feedback bad';
+      }
+
+      completed.q3 = true;
+      maybeShowFinal();
+    }
+
+    document.getElementById('check-resistance').addEventListener('click', checkResistance);
+    q3Input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkResistance();
     });
   </script>
 </body>
