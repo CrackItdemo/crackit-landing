@@ -177,7 +177,7 @@
     }
 
     .final p {
-      margin: 0 0 12px;
+      margin: 0;
       color: var(--muted);
       font-size: 1rem;
     }
@@ -185,6 +185,31 @@
     .score {
       font-weight: 850;
       color: var(--text);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .final-offer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .final-offer p {
+      line-height: 1.6;
+    }
+
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      text-decoration: none;
+      max-width: 420px;
+      font-size: 1.06rem;
+      font-weight: 800;
     }
 
     .global-actions {
@@ -248,9 +273,15 @@
 
       <footer id="final-block" class="final" aria-live="polite">
         <p id="score-line" class="score"></p>
-        <p>You’ve done 3. The exam has 20.</p>
-        <p>And they won’t be past paper repeats.</p>
-        <button class="cta" type="button">Get Full Access – €9.99</button>
+        <div class="final-offer">
+          <p>This is just a sample.</p>
+          <p>Study by topic.</p>
+          <p>Build from easy.</p>
+          <p>Be exam ready.</p>
+          <p>Unlock full access for €9.99 inside the app.</p>
+          <p>No subscription.</p>
+          <a class="cta cta-link" href="http://www.crackit.ie/" target="_blank" rel="noopener noreferrer">Download the app for free</a>
+        </div>
       </footer>
 
       <div class="global-actions">
