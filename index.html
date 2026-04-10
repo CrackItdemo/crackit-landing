@@ -396,6 +396,24 @@
 
   <script>
     const state = { q1: null, q2: null, q3: null };
+    // GA4 tracking flags to prevent duplicate event firing.
+    const gaEventsFired = {
+      quizStart: false,
+      q1Complete: false,
+      q2Complete: false,
+      q3Complete: false,
+      ctaClick: false
+    };
+
+    // GA4 helper: safely fire event only if gtag exists, with console logging for testing.
+    function trackGaEventOnce(flagKey, eventName) {
+      if (gaEventsFired[flagKey]) return;
+      gaEventsFired[flagKey] = true;
+      console.log(`GA Event: ${eventName}`);
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName);
+      }
+    }
 
     function scoreCount() {
       return Object.values(state).filter((v) => v === true).length;
@@ -448,6 +466,8 @@
     const q1Feedback = document.getElementById('q1-feedback');
     document.querySelectorAll('[data-q1]').forEach((button) => {
       button.addEventListener('click', () => {
+        // GA4: quiz starts on first interaction with the quiz.
+        trackGaEventOnce('quizStart', 'quiz_start');
         const choice = button.dataset.q1;
         let message = '';
         let correct = false;
@@ -466,6 +486,8 @@
         state.q1 = correct;
         q1Feedback.textContent = message;
         q1Feedback.className = `feedback ${correct ? 'good' : 'bad'}`;
+        // GA4: Q1 completed when user answers Q1.
+        trackGaEventOnce('q1Complete', 'quiz_q1_complete');
         maybeShowFinal();
       });
     });
@@ -477,6 +499,8 @@
     const q2Feedback = document.getElementById('q2-feedback');
 
     function checkPower() {
+      // GA4: quiz starts on first interaction with the quiz.
+      trackGaEventOnce('quizStart', 'quiz_start');
       const entered = Number(q2Input.value);
       if (!Number.isFinite(entered)) {
         q2Feedback.textContent = 'Please enter a numeric value.';
@@ -502,6 +526,8 @@
         q2Feedback.className = 'feedback bad';
       }
 
+      // GA4: Q2 completed when user checks Q2 answer.
+      trackGaEventOnce('q2Complete', 'quiz_q2_complete');
       maybeShowFinal();
     }
 
@@ -516,6 +542,8 @@
     const accepted = new Set(['ohm', 'ohms', 'ω', 'Ω']);
 
     function checkResistance() {
+      // GA4: quiz starts on first interaction with the quiz.
+      trackGaEventOnce('quizStart', 'quiz_start');
       const raw = q3Input.value.trim();
       const normalized = raw.toLowerCase();
       const isCorrect = accepted.has(raw) || accepted.has(normalized);
@@ -530,6 +558,8 @@
         q3Feedback.className = 'feedback bad';
       }
 
+      // GA4: Q3 completed when user checks Q3 answer.
+      trackGaEventOnce('q3Complete', 'quiz_q3_complete');
       maybeShowFinal();
     }
 
@@ -542,6 +572,10 @@
     document.getElementById('retry-q2').addEventListener('click', () => resetQuestion('q2'));
     document.getElementById('retry-q3').addEventListener('click', () => resetQuestion('q3'));
     document.getElementById('retry-all').addEventListener('click', resetAll);
+    document.querySelector('.cta-link').addEventListener('click', () => {
+      // GA4: main CTA click.
+      trackGaEventOnce('ctaClick', 'cta_click');
+    });
 
     maybeShowFinal();
   </script>
