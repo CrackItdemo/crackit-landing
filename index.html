@@ -77,6 +77,13 @@
       color: var(--muted);
     }
 
+    .sub-secondary {
+      margin-top: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+
     .q {
       margin-top: 24px;
       padding-top: 20px;
@@ -208,7 +215,7 @@
       margin-top: 14px;
       border-top: 1px solid var(--border);
       padding-top: 12px;
-      display: none;
+      display: block;
     }
 
     .final p {
@@ -267,6 +274,7 @@
       font-weight: 700;
       text-align: center !important;
       line-height: 1.35;
+      min-height: 1.7em;
       opacity: 1 !important;
     }
 
@@ -326,6 +334,7 @@
       <p class="brand"><span class="brand-crack">Crack</span><span class="brand-it">It</span></p>
       <h1>Test Yourself – Electrical Phase 4</h1>
       <p class="sub">Answer all 3 questions and get instant feedback.</p>
+      <p class="sub sub-secondary">Like what you see? Continue in the CrackIt app.</p>
 
       <article class="q" aria-labelledby="q1-title">
         <p class="prompt" id="q1-title">1) The unit of measure of inductive reactance (XL) is:</p>
@@ -394,11 +403,6 @@
 
     function maybeShowFinal() {
       const allDone = Object.values(state).every((v) => v !== null);
-      const finalBlock = document.getElementById('final-block');
-      if (!allDone) {
-        finalBlock.style.display = 'none';
-        return;
-      }
       const score = scoreCount();
       const resultMessages = {
         0: 'Hard luck — try again',
@@ -407,8 +411,9 @@
         3: 'Great job'
       };
       document.getElementById('score-line').textContent = `${score}/3`;
-      document.getElementById('result-message').textContent = resultMessages[score];
-      finalBlock.style.display = 'block';
+      document.getElementById('result-message').textContent = allDone
+        ? resultMessages[score]
+        : 'Answer all 3 questions to reveal your final result.';
     }
 
     function resetFeedback(id) {
@@ -437,7 +442,6 @@
       resetQuestion('q1');
       resetQuestion('q2');
       resetQuestion('q3');
-      document.getElementById('final-block').style.display = 'none';
     }
 
     // Question 1 (MCQ)
@@ -538,6 +542,8 @@
     document.getElementById('retry-q2').addEventListener('click', () => resetQuestion('q2'));
     document.getElementById('retry-q3').addEventListener('click', () => resetQuestion('q3'));
     document.getElementById('retry-all').addEventListener('click', resetAll);
+
+    maybeShowFinal();
   </script>
 </body>
 </html>
