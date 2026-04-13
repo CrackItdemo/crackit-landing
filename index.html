@@ -390,9 +390,9 @@
           <p id="result-message" class="result-message"></p>
         </div>
         <div class="final-offer">
-          <!-- Updated bottom results section copy per request. -->
-          <p class="final-message">Past papers won’t be enough this time.</p>
-          <p class="final-price">Make sure you’re ready.</p>
+          <!-- Score-based supporting copy now updates dynamically in maybeShowFinal(). -->
+          <p id="final-message-line-1" class="final-message"></p>
+          <p id="final-message-line-2" class="final-price"></p>
           <!-- Updated CTA label per request (tracking/behavior unchanged). -->
           <a class="cta cta-link" href="http://www.crackit.ie/" target="_blank" rel="noopener noreferrer">Start practising now</a>
           <!-- Added small supporting line directly under CTA. -->
@@ -434,16 +434,41 @@
     function maybeShowFinal() {
       const allDone = Object.values(state).every((v) => v !== null);
       const score = scoreCount();
-      const resultMessages = {
-        0: 'Hard luck — try again',
-        1: 'Good attempt — keep trying',
-        2: 'Good work',
-        3: 'Great job'
+      // Updated score response logic/messages per demo-page copy request.
+      const resultContent = {
+        0: {
+          scoreMessage: 'That didn’t go well — and this is only the basics.',
+          line1: 'Past papers won’t be enough this time.',
+          line2: 'Start building from the ground up.'
+        },
+        1: {
+          scoreMessage: 'You’re on the right track — but not exam ready.',
+          line1: 'Past papers won’t be enough this time.',
+          line2: 'Make sure you’re ready.'
+        },
+        2: {
+          scoreMessage: 'Not bad — but this is only the basics.',
+          line1: 'Past papers won’t be enough this time.',
+          line2: 'Make sure you’re ready.'
+        },
+        3: {
+          scoreMessage: 'Good — but the exam won’t stay this easy.',
+          line1: 'Past papers won’t be enough this time.',
+          line2: 'Be ready for what comes next.'
+        }
       };
+      const pendingResult = {
+        scoreMessage: 'Answer all 3 questions to reveal your final result.',
+        line1: 'Past papers won’t be enough this time.',
+        line2: 'Make sure you’re ready.'
+      };
+      // Ensure only one score-specific message set is shown after completion.
+      const content = allDone ? resultContent[score] : pendingResult;
+
       document.getElementById('score-line').textContent = `${score}/3`;
-      document.getElementById('result-message').textContent = allDone
-        ? resultMessages[score]
-        : 'Answer all 3 questions to reveal your final result.';
+      document.getElementById('result-message').textContent = content.scoreMessage;
+      document.getElementById('final-message-line-1').textContent = content.line1;
+      document.getElementById('final-message-line-2').textContent = content.line2;
     }
 
     function resetFeedback(id) {
