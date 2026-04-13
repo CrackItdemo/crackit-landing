@@ -107,8 +107,7 @@
     .btn,
     .opt-btn,
     .check-btn,
-    .cta,
-    .retry-all {
+    .cta {
       width: 100%;
       min-height: 54px;
       border-radius: 14px;
@@ -172,33 +171,18 @@
       outline: none;
     }
 
-    .btn,
-    .retry-all {
+    .btn {
       background: transparent;
       color: var(--text);
       border-color: #3a6e54;
       padding: 12px;
     }
 
-    .retry-all {
-      color: #bfdbc9;
-      border-color: #2a4a3a;
-      background: rgba(12, 24, 18, 0.6);
-    }
-
     .btn:hover,
-    .retry-all:hover,
-    .btn:focus-visible,
-    .retry-all:focus-visible {
+    .btn:focus-visible {
       border-color: var(--accent);
       color: var(--accent);
       outline: none;
-    }
-
-    .retry-all:hover,
-    .retry-all:focus-visible {
-      border-color: #5a8a70;
-      color: #e3f7eb;
     }
 
     .feedback {
@@ -315,12 +299,6 @@
       opacity: 0.75 !important;
     }
 
-    .global-actions {
-      margin-top: 8px;
-      width: 100%;
-      max-width: 420px;
-    }
-
     .final *:not(.tagline),
     .result-block * {
       color: #ffffff !important;
@@ -398,9 +376,7 @@
           <!-- Added small supporting line directly under CTA. -->
           <p class="cta-support">Free to download</p>
         </div>
-        <div class="global-actions">
-          <button id="retry-all" class="retry-all" type="button">Retry All</button>
-        </div>
+        <!-- Removed Retry All container/button per request; keeping bottom section/CTA untouched. -->
         <p class="tagline">CrackIt — your study buddy</p>
       </footer>
     </section>
@@ -493,11 +469,7 @@
       maybeShowFinal();
     }
 
-    function resetAll() {
-      resetQuestion('q1');
-      resetQuestion('q2');
-      resetQuestion('q3');
-    }
+    // Removed resetAll() because Retry All button/event no longer exists.
 
     // Question 1 (MCQ)
     const q1Feedback = document.getElementById('q1-feedback');
@@ -608,7 +580,7 @@
     document.getElementById('retry-q1').addEventListener('click', () => resetQuestion('q1'));
     document.getElementById('retry-q2').addEventListener('click', () => resetQuestion('q2'));
     document.getElementById('retry-q3').addEventListener('click', () => resetQuestion('q3'));
-    document.getElementById('retry-all').addEventListener('click', resetAll);
+    // Removed Retry All click listener (button removed from UI).
     document.querySelector('.cta-link').addEventListener('click', () => {
       // GA4: main CTA click.
       trackGaEventOnce('ctaClick', 'cta_click');
