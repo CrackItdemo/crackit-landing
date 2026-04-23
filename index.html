@@ -324,12 +324,13 @@
       <p class="sub sub-secondary">Like what you see? Continue in the CrackIt app.</p>
 
       <article class="q" aria-labelledby="q1-title">
-        <p class="prompt" id="q1-title">1) The unit of measure of inductive reactance (XL) is:</p>
+        <!-- Updated Q1 prompt/options/feedback targets per new demo quiz content request. -->
+        <p class="prompt" id="q1-title">1) If you know the phase angle in a circuit, power factor is given by:</p>
         <div class="options" role="group" aria-label="Question 1 options">
-          <button class="opt-btn" data-q1="V" type="button">A. V</button>
-          <button class="opt-btn" data-q1="A" type="button">B. A</button>
-          <button class="opt-btn" data-q1="H" type="button">C. H</button>
-          <button class="opt-btn" data-q1="Ω" type="button">D. Ω</button>
+          <button class="opt-btn" data-q1="A" type="button">A) cosφ</button>
+          <button class="opt-btn" data-q1="B" type="button">B) sinφ</button>
+          <button class="opt-btn" data-q1="C" type="button">C) tanφ</button>
+          <button class="opt-btn" data-q1="D" type="button">D) All of the above</button>
         </div>
         <p id="q1-feedback" class="feedback" aria-live="polite"></p>
         <div class="question-actions">
@@ -338,11 +339,13 @@
       </article>
 
       <article class="q" aria-labelledby="q2-title">
-        <p class="prompt" id="q2-title">2) In an AC resistive circuit, calculate the power.</p>
-        <p class="givens">Given: V = 230 V, I = 2 A</p>
-        <div class="input-row">
-          <input id="power-input" type="number" step="any" inputmode="decimal" placeholder="Enter power" aria-label="Power answer" />
-          <button id="check-power" class="check-btn" type="button">Check</button>
+        <!-- Updated Q2 prompt/options/feedback targets per new demo quiz content request. -->
+        <p class="prompt" id="q2-title">2) In a series AC circuit with a resistor and a coil, current is found by dividing supply voltage by:</p>
+        <div class="options" role="group" aria-label="Question 2 options">
+          <button class="opt-btn" data-q2="A" type="button">A) Resistance</button>
+          <button class="opt-btn" data-q2="B" type="button">B) Reactance</button>
+          <button class="opt-btn" data-q2="C" type="button">C) Impedance</button>
+          <button class="opt-btn" data-q2="D" type="button">D) Inductance</button>
         </div>
         <p id="q2-feedback" class="feedback" aria-live="polite"></p>
         <div class="question-actions">
@@ -351,10 +354,12 @@
       </article>
 
       <article class="q" aria-labelledby="q3-title">
-        <p class="prompt" id="q3-title">3) Resistance is measured in _______</p>
-        <div class="input-row">
-          <input id="resistance-input" type="text" placeholder="Type your answer" aria-label="Unit of resistance" />
-          <button id="check-resistance" class="check-btn" type="button">Check</button>
+        <!-- Updated Q3 prompt/options/feedback targets while preserving existing flow and structure. -->
+        <p class="prompt" id="q3-title">3) Is this leading or lagging?</p>
+        <p class="givens">Resistive inductive (RL) circuit / impedance triangle context.</p>
+        <div class="options" role="group" aria-label="Question 3 options">
+          <button class="opt-btn" data-q3="Leading" type="button">Leading</button>
+          <button class="opt-btn" data-q3="Lagging" type="button">Lagging</button>
         </div>
         <p id="q3-feedback" class="feedback" aria-live="polite"></p>
         <div class="question-actions">
@@ -459,11 +464,9 @@
         resetFeedback('q1-feedback');
       }
       if (qKey === 'q2') {
-        document.getElementById('power-input').value = '';
         resetFeedback('q2-feedback');
       }
       if (qKey === 'q3') {
-        document.getElementById('resistance-input').value = '';
         resetFeedback('q3-feedback');
       }
       maybeShowFinal();
@@ -471,7 +474,7 @@
 
     // Removed resetAll() because Retry All button/event no longer exists.
 
-    // Question 1 (MCQ)
+    // Question 1 (MCQ) - updated answer key and feedback copy.
     const q1Feedback = document.getElementById('q1-feedback');
     document.querySelectorAll('[data-q1]').forEach((button) => {
       button.addEventListener('click', () => {
@@ -481,15 +484,15 @@
         let message = '';
         let correct = false;
 
-        if (choice === 'Ω') {
+        if (choice === 'A') {
           correct = true;
-          message = 'Correct — inductive reactance is measured in ohms.';
-        } else if (choice === 'V') {
-          message = 'Incorrect — volts measure potential difference.';
-        } else if (choice === 'A') {
-          message = 'Incorrect — amps measure current.';
-        } else if (choice === 'H') {
-          message = 'Incorrect — henry is the unit of inductance.';
+          message = 'Correct — when the phase angle is known, power factor is cosφ.';
+        } else if (choice === 'B') {
+          message = 'Incorrect — power factor is not obtained using sinφ.';
+        } else if (choice === 'C') {
+          message = 'Incorrect — power factor is not obtained using tanφ.';
+        } else if (choice === 'D') {
+          message = 'Incorrect — power factor is obtained from the phase angle using cosφ.';
         }
 
         state.q1 = correct;
@@ -501,80 +504,56 @@
       });
     });
 
-    // Question 2 (Numeric)
-    const correctPower = 460;
-    const closeTolerance = correctPower * 0.05;
-    const q2Input = document.getElementById('power-input');
+    // Question 2 (MCQ) - updated options, answer key, and per-option feedback copy.
     const q2Feedback = document.getElementById('q2-feedback');
+    document.querySelectorAll('[data-q2]').forEach((button) => {
+      button.addEventListener('click', () => {
+        // GA4: quiz starts on first interaction with the quiz.
+        trackGaEventOnce('quizStart', 'quiz_start');
+        const choice = button.dataset.q2;
+        let message = '';
+        let correct = false;
 
-    function checkPower() {
-      // GA4: quiz starts on first interaction with the quiz.
-      trackGaEventOnce('quizStart', 'quiz_start');
-      const entered = Number(q2Input.value);
-      if (!Number.isFinite(entered)) {
-        q2Feedback.textContent = 'Please enter a numeric value.';
-        q2Feedback.className = 'feedback bad';
-        return;
-      }
+        if (choice === 'C') {
+          correct = true;
+          message = 'Correct — with supply voltage, current is found using impedance.';
+        } else if (choice === 'A') {
+          message = 'Incorrect — you would need the voltage across the resistor to use resistance.';
+        } else if (choice === 'B') {
+          message = 'Incorrect — you would need the voltage across the coil to use reactance.';
+        } else if (choice === 'D') {
+          message = 'Incorrect — inductance is not used directly to calculate current.';
+        }
 
-      const diff = Math.abs(entered - correctPower);
-      const isExact = entered === correctPower;
-      const isClose = !isExact && diff <= closeTolerance;
+        state.q2 = correct;
+        q2Feedback.textContent = message;
+        q2Feedback.className = `feedback ${correct ? 'good' : 'bad'}`;
 
-      if (isExact) {
-        state.q2 = true;
-        q2Feedback.textContent = 'Correct — exact match.';
-        q2Feedback.className = 'feedback good';
-      } else if (isClose) {
-        state.q2 = false;
-        q2Feedback.textContent = 'Close — check your calculation.';
-        q2Feedback.className = 'feedback bad';
-      } else {
-        state.q2 = false;
-        q2Feedback.textContent = 'Hard luck — use P = V × I.';
-        q2Feedback.className = 'feedback bad';
-      }
-
-      // GA4: Q2 completed when user checks Q2 answer.
-      trackGaEventOnce('q2Complete', 'quiz_q2_complete');
-      maybeShowFinal();
-    }
-
-    document.getElementById('check-power').addEventListener('click', checkPower);
-    q2Input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') checkPower();
+        // GA4: Q2 completed when user answers Q2.
+        trackGaEventOnce('q2Complete', 'quiz_q2_complete');
+        maybeShowFinal();
+      });
     });
 
-    // Question 3 (Written)
-    const q3Input = document.getElementById('resistance-input');
+    // Question 3 (MCQ) - updated to leading/lagging with requested feedback copy.
     const q3Feedback = document.getElementById('q3-feedback');
-    const accepted = new Set(['ohm', 'ohms', 'ω', 'Ω']);
+    document.querySelectorAll('[data-q3]').forEach((button) => {
+      button.addEventListener('click', () => {
+        // GA4: quiz starts on first interaction with the quiz.
+        trackGaEventOnce('quizStart', 'quiz_start');
+        const choice = button.dataset.q3;
+        const isCorrect = choice === 'Lagging';
 
-    function checkResistance() {
-      // GA4: quiz starts on first interaction with the quiz.
-      trackGaEventOnce('quizStart', 'quiz_start');
-      const raw = q3Input.value.trim();
-      const normalized = raw.toLowerCase();
-      const isCorrect = accepted.has(raw) || accepted.has(normalized);
+        state.q3 = isCorrect;
+        q3Feedback.textContent = isCorrect
+          ? 'Correct — current lags voltage in a resistive inductive circuit.'
+          : 'Incorrect — in a resistive inductive circuit, the current lags the voltage.';
+        q3Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
 
-      if (isCorrect) {
-        state.q3 = true;
-        q3Feedback.textContent = 'Correct — resistance is measured in ohms.';
-        q3Feedback.className = 'feedback good';
-      } else {
-        state.q3 = false;
-        q3Feedback.textContent = 'Incorrect — resistance is measured in ohms.';
-        q3Feedback.className = 'feedback bad';
-      }
-
-      // GA4: Q3 completed when user checks Q3 answer.
-      trackGaEventOnce('q3Complete', 'quiz_q3_complete');
-      maybeShowFinal();
-    }
-
-    document.getElementById('check-resistance').addEventListener('click', checkResistance);
-    q3Input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') checkResistance();
+        // GA4: Q3 completed when user answers Q3.
+        trackGaEventOnce('q3Complete', 'quiz_q3_complete');
+        maybeShowFinal();
+      });
     });
 
     document.getElementById('retry-q1').addEventListener('click', () => resetQuestion('q1'));
