@@ -372,17 +372,19 @@
         <!-- Updated Q3 prompt/options/feedback targets while preserving existing flow and structure. -->
         <p class="prompt" id="q3-title">3) Is this leading or lagging?</p>
         <p class="givens">Resistive inductive (RL) circuit / impedance triangle context.</p>
-        <!-- Q3 diagram added: simple, mobile-friendly impedance triangle with R base, Xₗ right vertical, Z hypotenuse, and φ angle. -->
+        <!-- Q3 diagram updated: refined label positioning + single-color styling for clearer mobile readability. -->
         <div class="impedance-diagram" aria-hidden="true">
           <svg viewBox="0 0 260 160" role="img" aria-label="Impedance triangle">
-            <line x1="40" y1="120" x2="180" y2="120" stroke="#f2fff7" stroke-width="2.5" />
-            <line x1="180" y1="120" x2="180" y2="40" stroke="#f2fff7" stroke-width="2.5" />
-            <line x1="40" y1="120" x2="180" y2="40" stroke="#2ae870" stroke-width="2.5" />
-            <path d="M 64 120 A 24 24 0 0 1 60.8 108" fill="none" stroke="#f2fff7" stroke-width="2" />
-            <text x="108" y="138" fill="#f2fff7" font-size="16" font-weight="700">R</text>
-            <text x="188" y="85" fill="#f2fff7" font-size="16" font-weight="700">Xₗ</text>
-            <text x="118" y="76" fill="#2ae870" font-size="16" font-weight="700">Z</text>
-            <text x="67" y="108" fill="#f2fff7" font-size="16" font-weight="700">φ</text>
+            <!-- Single-color triangle styling (app primary green) for all lines + labels. -->
+            <line x1="40" y1="120" x2="180" y2="120" stroke="var(--accent)" stroke-width="2.5" />
+            <line x1="180" y1="120" x2="180" y2="40" stroke="var(--accent)" stroke-width="2.5" />
+            <line x1="40" y1="120" x2="180" y2="40" stroke="var(--accent)" stroke-width="2.5" />
+            <path d="M 64 120 A 24 24 0 0 1 60.8 108" fill="none" stroke="var(--accent)" stroke-width="2" />
+            <!-- Label placements adjusted to avoid line overlap and keep readability on small screens. -->
+            <text x="110" y="142" text-anchor="middle" fill="var(--accent)" font-size="16" font-weight="700">R</text>
+            <text x="192" y="84" fill="var(--accent)" font-size="16" font-weight="700">Xₗ</text>
+            <text x="114" y="68" fill="var(--accent)" font-size="16" font-weight="700">Z</text>
+            <text x="74" y="104" fill="var(--accent)" font-size="16" font-weight="700">φ</text>
           </svg>
         </div>
         <!-- Q3 options replaced with a text input box and check button. -->
