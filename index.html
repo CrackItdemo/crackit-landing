@@ -139,6 +139,20 @@
       font-size: 0.97rem;
     }
 
+    .impedance-diagram {
+      margin: 0 0 14px;
+      border: 1px solid #2c5742;
+      border-radius: 12px;
+      background: #0b1711;
+      padding: 10px;
+    }
+
+    .impedance-diagram svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     input {
       width: 100%;
       min-height: 54px;
@@ -152,6 +166,7 @@
 
     input::placeholder {
       color: #86ab97;
+      opacity: 0.7;
     }
 
     .check-btn,
@@ -357,9 +372,23 @@
         <!-- Updated Q3 prompt/options/feedback targets while preserving existing flow and structure. -->
         <p class="prompt" id="q3-title">3) Is this leading or lagging?</p>
         <p class="givens">Resistive inductive (RL) circuit / impedance triangle context.</p>
-        <div class="options" role="group" aria-label="Question 3 options">
-          <button class="opt-btn" data-q3="Leading" type="button">Leading</button>
-          <button class="opt-btn" data-q3="Lagging" type="button">Lagging</button>
+        <!-- Q3 diagram added: simple, mobile-friendly impedance triangle with R base, Xₗ right vertical, Z hypotenuse, and φ angle. -->
+        <div class="impedance-diagram" aria-hidden="true">
+          <svg viewBox="0 0 260 160" role="img" aria-label="Impedance triangle">
+            <line x1="40" y1="120" x2="180" y2="120" stroke="#f2fff7" stroke-width="2.5" />
+            <line x1="180" y1="120" x2="180" y2="40" stroke="#f2fff7" stroke-width="2.5" />
+            <line x1="40" y1="120" x2="180" y2="40" stroke="#2ae870" stroke-width="2.5" />
+            <path d="M 64 120 A 24 24 0 0 1 60.8 108" fill="none" stroke="#f2fff7" stroke-width="2" />
+            <text x="108" y="138" fill="#f2fff7" font-size="16" font-weight="700">R</text>
+            <text x="188" y="85" fill="#f2fff7" font-size="16" font-weight="700">Xₗ</text>
+            <text x="118" y="76" fill="#2ae870" font-size="16" font-weight="700">Z</text>
+            <text x="67" y="108" fill="#f2fff7" font-size="16" font-weight="700">φ</text>
+          </svg>
+        </div>
+        <!-- Q3 options replaced with a text input box and check button. -->
+        <div class="input-row">
+          <input id="q3-input" type="text" placeholder="Type your answer here" autocomplete="off" />
+          <button id="check-q3" class="check-btn" type="button">Check</button>
         </div>
         <p id="q3-feedback" class="feedback" aria-live="polite"></p>
         <div class="question-actions">
@@ -535,30 +564,81 @@
       });
     });
 
-    // Question 3 (MCQ) - updated to leading/lagging with requested feedback copy.
+    // Q3 validation logic implemented: accepts lead/lag variants, allows minor typo (~1 character),
+    // and marks only lagging as correct (case-insensitive).
     const q3Feedback = document.getElementById('q3-feedback');
-    document.querySelectorAll('[data-q3]').forEach((button) => {
-      button.addEventListener('click', () => {
-        // GA4: quiz starts on first interaction with the quiz.
-        trackGaEventOnce('quizStart', 'quiz_start');
-        const choice = button.dataset.q3;
-        const isCorrect = choice === 'Lagging';
+    const q3Input = document.getElementById('q3-input');
+    const q3CheckButton = document.getElementById('check-q3');
 
-        state.q3 = isCorrect;
-        q3Feedback.textContent = isCorrect
-          ? 'Correct — current lags voltage in a resistive inductive circuit.'
-          : 'Incorrect — in a resistive inductive circuit, the current lags the voltage.';
-        q3Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
+    function withinOneEdit(a, b) {
+      const left = a.trim().toLowerCase();
+      const right = b.trim().toLowerCase();
+      if (left === right) return true;
+      if (Math.abs(left.length - right.length) > 1) return false;
 
-        // GA4: Q3 completed when user answers Q3.
-        trackGaEventOnce('q3Complete', 'quiz_q3_complete');
-        maybeShowFinal();
-      });
+      let i = 0;
+      let j = 0;
+      let edits = 0;
+      while (i < left.length && j < right.length) {
+        if (left[i] === right[j]) {
+          i += 1;
+          j += 1;
+          continue;
+        }
+        edits += 1;
+        if (edits > 1) return false;
+        if (left.length > right.length) {
+          i += 1;
+        } else if (left.length < right.length) {
+          j += 1;
+        } else {
+          i += 1;
+          j += 1;
+        }
+      }
+      if (i < left.length || j < right.length) edits += 1;
+      return edits <= 1;
+    }
+
+    function evaluateQ3Answer(rawValue) {
+      const value = rawValue.trim().toLowerCase();
+      const leadingInputs = ['lead', 'leads', 'leading'];
+      const laggingInputs = ['lag', 'lags', 'lagging'];
+
+      const matchesLeading = leadingInputs.some((entry) => withinOneEdit(value, entry));
+      const matchesLagging = laggingInputs.some((entry) => withinOneEdit(value, entry));
+      return matchesLagging && !matchesLeading;
+    }
+
+    q3CheckButton.addEventListener('click', () => {
+      // GA4: quiz starts on first interaction with the quiz.
+      trackGaEventOnce('quizStart', 'quiz_start');
+      const isCorrect = evaluateQ3Answer(q3Input.value);
+
+      state.q3 = isCorrect;
+      q3Feedback.textContent = isCorrect
+        ? 'Correct — current lags voltage in a resistive inductive circuit.'
+        : 'Incorrect — in a resistive inductive circuit, the current lags the voltage.';
+      q3Feedback.className = `feedback ${isCorrect ? 'good' : 'bad'}`;
+
+      // GA4: Q3 completed when user answers Q3.
+      trackGaEventOnce('q3Complete', 'quiz_q3_complete');
+      maybeShowFinal();
+    });
+
+    q3Input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        q3CheckButton.click();
+      }
     });
 
     document.getElementById('retry-q1').addEventListener('click', () => resetQuestion('q1'));
     document.getElementById('retry-q2').addEventListener('click', () => resetQuestion('q2'));
-    document.getElementById('retry-q3').addEventListener('click', () => resetQuestion('q3'));
+    document.getElementById('retry-q3').addEventListener('click', () => {
+      resetQuestion('q3');
+      q3Input.value = '';
+    });
     // Removed Retry All click listener (button removed from UI).
     document.querySelector('.cta-link').addEventListener('click', () => {
       // GA4: main CTA click.
