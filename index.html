@@ -584,6 +584,10 @@
     document.querySelector('.cta-link').addEventListener('click', () => {
       // GA4: main CTA click.
       trackGaEventOnce('ctaClick', 'cta_click');
+      if (typeof gtag === "function") {
+        gtag("event", "outbound_click_to_app_store");
+        console.log("GA Event: outbound_click_to_app_store");
+      }
     });
 
     maybeShowFinal();
